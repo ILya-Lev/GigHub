@@ -1,5 +1,5 @@
-﻿using System.Data.Entity;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 
 namespace GigHub.Models
 {
@@ -15,9 +15,6 @@ namespace GigHub.Models
 		{
 		}
 
-		public static ApplicationDbContext Create()
-		{
-			return new ApplicationDbContext();
-		}
+		public static ApplicationDbContext Create() => new ApplicationDbContext();
 	}
 }
