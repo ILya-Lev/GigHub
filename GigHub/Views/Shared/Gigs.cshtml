@@ -1,9 +1,9 @@
-﻿@model GigHub.ViewModels.HomeViewModel
+﻿@model GigHub.ViewModels.GigsViewModel
 @{
     ViewBag.Title = "Home Page";
 }
-
-<ul class="gigs">
+<h1>@Model.Heading</h1>
+<ul class="gigs voffset4">
     @foreach (var gig in Model.UpcomingGigs)
     {
         <li>
@@ -49,16 +49,16 @@
                         alert("Something failed!");
                     });
             });
-            $("js-toogle-following").click(function (event) {
+            $("js-toogle-following").click(function(event) {
                 var link = $(event.target);
                 $post("/api/followings", { followeeId: link.attr("data-user-id") })
-                    .done(function () {
+                    .done(function() {
                         link.text("Following");
                     })
-                    .fail(function () {
+                    .fail(function() {
                         alert("Something failed!");
                     });
-            })
+            });
         });
     </script>
 }
