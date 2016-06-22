@@ -23,7 +23,7 @@ namespace GigHub.Controllers
 			var viewModel = new GigFormViewModel
 			{
 				Genres = _context.Genres.ToList(),
-				Heading = "Add a Gig",
+				Heading = "Add a Gig"
 			};
 			return View("GigForm", viewModel);
 		}
@@ -42,20 +42,9 @@ namespace GigHub.Controllers
 				Time = gig.DateTime.ToString("t"),
 				Genre = gig.GenreId,
 				Venue = gig.Venue,
-				Heading = "Edit a Gig",
+				Heading = "Edit a Gig"
 			};
 			return View("GigForm", viewModel);
-		}
-
-		[Authorize]
-		public ActionResult Mine ()
-		{
-			var userId = User.Identity.GetUserId();
-			var gigs = _context.Gigs.Where(g => g.ArtistId == userId && g.DateTime > DateTime.Now)
-									.Include(g => g.Genre)
-									.ToList();
-
-			return View("Mine", gigs);
 		}
 
 		[Authorize]
@@ -103,6 +92,19 @@ namespace GigHub.Controllers
 			//_context.Gigs.AddOrUpdate(gig);
 			_context.SaveChanges();
 			return RedirectToAction("Mine", "Gigs");
+		}
+
+		[Authorize]
+		public ActionResult Mine ()
+		{
+			var userId = User.Identity.GetUserId();
+			var gigs = _context.Gigs.Where(g => g.ArtistId == userId
+											&& g.DateTime > DateTime.Now
+											&& !g.IsCanceled)
+									.Include(g => g.Genre)
+									.ToList();
+
+			return View("Mine", gigs);
 		}
 
 		[Authorize]

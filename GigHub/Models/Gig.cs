@@ -7,6 +7,8 @@ namespace GigHub.Models
 	{
 		public int Id { get; set; }
 
+		public bool IsCanceled { get; set; }
+
 		// it's navigation prop after we've added an ArtistId prop
 		public ApplicationUser Artist { get; set; }
 

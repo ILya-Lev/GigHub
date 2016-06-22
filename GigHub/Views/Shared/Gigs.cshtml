@@ -14,6 +14,12 @@
             <div class="details">
                 <span class="artist">
                     @gig.Artist.Name
+                    
+                    @if (gig.IsCanceled)
+                    {
+                        <span class="label label-warning">Canceled</span>
+                    }
+
                     @if (Model.ShowActions)
                     {
                         <button class="btn btn-link btn-sm pull-right js-toogle-following follow"
@@ -23,7 +29,7 @@
                     }
                 </span>
                 <span class="genre">@gig.Genre.Name</span>
-                @if (Model.ShowActions)
+                @if (Model.ShowActions && !gig.IsCanceled)
                 {
                     <button data-gig-id="@gig.Id"
                             class="btn btn-default btn-sm pull-right js-toogle-attendance">
@@ -39,25 +45,28 @@
 {
     <script>
         $(document).ready(function() {
-            $("js-toogle-attendance").click(function(event) {
-                var button = $(event.target);
-                $post("/api/attendances", { GigId : button.attr("data-gig-id") })
-                    .done(function() {
-                        button.removeClass("btn-default").addClass("btn-info").text("Going");
-                    })
-                    .fail(function() {
-                        alert("Something failed!");
-                    });
+            $("js-toogle-attendance").click(function(e) {
+                    var button = $(e.target);
+                    $.ajax({ 
+                        url: "/api/attendances/" + "GigId=" + button.attr("data-gig-id"),
+                        method: "POST"
+                })
+                .done(function() {
+                    button.removeClass("btn-default").addClass("btn-info").text("Going");
+                })
+                .fail(function() {
+                    alert("Something failed!");
+                });
             });
             $("js-toogle-following").click(function(event) {
                 var link = $(event.target);
-                $post("/api/followings", { followeeId: link.attr("data-user-id") })
-                    .done(function() {
-                        link.text("Following");
-                    })
-                    .fail(function() {
-                        alert("Something failed!");
-                    });
+                $post("/api/followings/", { followeeId: link.attr("data-user-id") })
+                .done(function() {
+                    link.text("Following");
+                })
+                .fail(function() {
+                    alert("Something failed!");
+                });
             });
         });
     </script>

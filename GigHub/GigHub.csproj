@@ -211,13 +211,15 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AttendancesController.cs" />
-    <Compile Include="Controllers\FollowingController.cs" />
+    <Compile Include="Controllers\Api\AttendancesController.cs" />
+    <Compile Include="Controllers\Api\FollowingController.cs" />
+    <Compile Include="Controllers\Api\GigsController.cs" />
     <Compile Include="Controllers\GigsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Dto\AttendanceDto.cs" />
     <Compile Include="Dto\FollowingDto.cs" />
+    <Compile Include="Dto\GigsDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -265,6 +267,10 @@
     <Compile Include="Migrations\201606201856230_FollowingAdded.Designer.cs">
       <DependentUpon>201606201856230_FollowingAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606220809364_IsCanceledPropAddedToGig.cs" />
+    <Compile Include="Migrations\201606220809364_IsCanceledPropAddedToGig.Designer.cs">
+      <DependentUpon>201606220809364_IsCanceledPropAddedToGig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Attendance.cs" />
@@ -298,9 +304,11 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-1.10.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -395,6 +403,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606201856230_FollowingAdded.resx">
       <DependentUpon>201606201856230_FollowingAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606220809364_IsCanceledPropAddedToGig.resx">
+      <DependentUpon>201606220809364_IsCanceledPropAddedToGig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
