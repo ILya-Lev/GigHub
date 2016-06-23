@@ -271,6 +271,10 @@
     <Compile Include="Migrations\201606220809364_IsCanceledPropAddedToGig.Designer.cs">
       <DependentUpon>201606220809364_IsCanceledPropAddedToGig.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606231041114_UserNotificationClassesAdded.cs" />
+    <Compile Include="Migrations\201606231041114_UserNotificationClassesAdded.Designer.cs">
+      <DependentUpon>201606231041114_UserNotificationClassesAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Attendance.cs" />
@@ -279,6 +283,9 @@
     <Compile Include="Models\Gig.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\NotificationType.cs" />
+    <Compile Include="Models\UserNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ExternalLoginConfirmationViewModel.cs" />
@@ -406,6 +413,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606220809364_IsCanceledPropAddedToGig.resx">
       <DependentUpon>201606220809364_IsCanceledPropAddedToGig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606231041114_UserNotificationClassesAdded.resx">
+      <DependentUpon>201606231041114_UserNotificationClassesAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
