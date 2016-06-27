@@ -58,13 +58,7 @@ namespace GigHub.Controllers
 				return View("GigForm", viewModel);
 			}
 
-			var gig = new Gig
-			{
-				ArtistId = User.Identity.GetUserId(),
-				DateTime = viewModel.DateTime(),
-				GenreId = viewModel.Genre,
-				Venue = viewModel.Venue
-			};
+			var gig = new Gig(artistId: User.Identity.GetUserId(), viewModel: viewModel);
 
 			_context.Gigs.Add(gig);
 			_context.SaveChanges();
@@ -83,13 +77,12 @@ namespace GigHub.Controllers
 			}
 
 			var userId = User.Identity.GetUserId();
-			var gig = _context.Gigs.Single(g => g.Id == viewModel.Id && g.ArtistId == userId);
+			var gig = _context.Gigs
+							  .Include(g => g.Attendances.Select(a => a.Attendee))
+							  .Single(g => g.Id == viewModel.Id && g.ArtistId == userId);
 
-			gig.DateTime = viewModel.DateTime();
-			gig.GenreId = viewModel.Genre;
-			gig.Venue = viewModel.Venue;
+			gig.Update(viewModel);
 
-			//_context.Gigs.AddOrUpdate(gig);
 			_context.SaveChanges();
 			return RedirectToAction("Mine", "Gigs");
 		}
