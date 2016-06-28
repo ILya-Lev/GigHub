@@ -32,11 +32,11 @@ namespace GigHub.Models
 
 		public ICollection<Attendance> Attendances { get; } = new Collection<Attendance>();
 
-		protected Gig()
+		protected Gig ()
 		{
 		}
 
-		public Gig(string artistId, GigFormViewModel viewModel)
+		public Gig (string artistId, GigFormViewModel viewModel)
 		{
 			ArtistId = artistId;
 			DateTime = viewModel.DateTime();
@@ -44,7 +44,7 @@ namespace GigHub.Models
 			Venue = viewModel.Venue;
 		}
 
-		public void Cancel()
+		public void Cancel ()
 		{
 			IsCanceled = true;
 
@@ -55,7 +55,7 @@ namespace GigHub.Models
 			}
 		}
 
-		public void Update(GigFormViewModel viewModel)
+		public void Update (GigFormViewModel viewModel)
 		{
 			var notification = Notification.CreateUpdateNotification(this);
 
