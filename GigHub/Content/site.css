@@ -149,6 +149,9 @@ h6,
   display: block;
   font-weight: bold;
 }
+.gigs > li .details .artist .btn-lg {
+  padding: 0px 9px 13px 0px;
+}
 .gigs > li .details .genre {
   font-size: 15px;
 }
@@ -161,4 +164,11 @@ h6,
 }
 .gigs > li:hover .actions {
   display: block;
+}
+#searchGigs {
+  width: 300px;
+}
+.artist {
+  font-weight: bold;
+  font-size: 20px;
 }

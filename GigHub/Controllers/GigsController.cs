@@ -124,5 +124,23 @@ namespace GigHub.Controllers
 												.ToList();
 			return View("Followings", followings);
 		}
+
+		[Authorize]
+		[HttpPost]
+		public ActionResult Search (GigsViewModel viewModel)
+		{
+			return RedirectToAction("Index", "Home", new { query = viewModel.SearchTerm });
+		}
+
+		[Authorize]
+		public ActionResult Details (int id)
+		{
+			var userId = User.Identity.GetUserId();
+			var gig = _context.Gigs
+							  .Include(g => g.Genre)
+							  .Include(g => g.Artist)
+							  .Single(g => g.Id == id);
+			return View("Details", new GigDetailsViewModel(gig, userId));
+		}
 	}
 }

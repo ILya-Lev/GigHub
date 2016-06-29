@@ -3,41 +3,54 @@
     ViewBag.Title = "Home Page";
 }
 <h1>@Model.Heading</h1>
+
+@using (Html.BeginForm("Search", "Gigs"))
+{
+    <div class="form-goup">
+        <div id="searchGigs" class="input-group">
+            @Html.TextBoxFor(m => m.SearchTerm, new {@class = "form-control", placeholder="Search by artist, venue, genre", autofocus="autofocus"})
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>
+            </span>
+        </div>
+    </div>
+}
+
 <ul class="gigs voffset4">
     @foreach (var gig in Model.UpcomingGigs)
     {
-        <li>
-            <div class="date">
-                <div class="month">@gig.DateTime.ToString("MMM")</div>
-                <div class="day">@gig.DateTime.ToString("d ")</div>
-            </div>
-            <div class="details">
-                <span class="artist">
-                    @gig.Artist.Name
-                    
-                    @if (gig.IsCanceled)
-                    {
-                        <span class="label label-warning">Canceled</span>
-                    }
+    <li>
+        <div class="date">
+            <div class="month">@gig.DateTime.ToString("MMM")</div>
+            <div class="day">@gig.DateTime.ToString("d ")</div>
+        </div>
+        <div class="details">
+            <span class="artist">
+                @Html.ActionLink(gig.Artist.Name, "Details", "Gigs", new {Id = gig.Id}, new {@class="btn btn-link btn-lg"})
 
-                    @if (Model.ShowActions)
-                    {
-                        <button class="btn btn-link btn-sm pull-right js-toogle-following follow"
-                                data-user-id="@gig.ArtistId">
-                            Follow
-                        </button>
-                    }
-                </span>
-                <span class="genre">@gig.Genre.Name</span>
-                @if (Model.ShowActions && !gig.IsCanceled)
+                @if (gig.IsCanceled)
                 {
-                    <button data-gig-id="@gig.Id"
-                            class="btn btn-default btn-sm pull-right js-toogle-attendance">
-                        Going ?
-                    </button>
+                <span class="label label-warning">Canceled</span>
                 }
-            </div>
-        </li>
+
+                @if (Model.ShowActions)
+                {
+                <button class="btn btn-link btn-sm pull-right js-toogle-following follow"
+                        data-user-id="@gig.ArtistId">
+                    Follow
+                </button>
+                }
+            </span>
+            <span class="genre">@gig.Genre.Name</span>
+            @if (Model.ShowActions && !gig.IsCanceled)
+            {
+            <button data-gig-id="@gig.Id"
+                    class="btn btn-default btn-sm pull-right js-toogle-attendance">
+                Going ?
+            </button>
+            }
+        </div>
+    </li>
     }
 </ul>
 
@@ -45,9 +58,9 @@
 {
     <script>
         $(document).ready(function() {
-            $("js-toogle-attendance").click(function(e) {
+            $(".js-toogle-attendance").click(function(e) {
                     var button = $(e.target);
-                    $.ajax({ 
+                    $.ajax({
                         url: "/api/attendances/" + "GigId=" + button.attr("data-gig-id"),
                         method: "POST"
                 })
@@ -58,7 +71,7 @@
                     alert("Something failed!");
                 });
             });
-            $("js-toogle-following").click(function(event) {
+            $(".js-toogle-following").click(function(event) {
                 var link = $(event.target);
                 $.post("/api/followings/", { followeeId: link.attr("data-user-id") })
                 .done(function() {
