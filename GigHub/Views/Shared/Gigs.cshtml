@@ -60,7 +60,7 @@
             });
             $("js-toogle-following").click(function(event) {
                 var link = $(event.target);
-                $post("/api/followings/", { followeeId: link.attr("data-user-id") })
+                $.post("/api/followings/", { followeeId: link.attr("data-user-id") })
                 .done(function() {
                     link.text("Following");
                 })
