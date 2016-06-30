@@ -132,13 +132,13 @@ namespace GigHub.Controllers
 			return RedirectToAction("Index", "Home", new { query = viewModel.SearchTerm });
 		}
 
-		[Authorize]
 		public ActionResult Details (int id)
 		{
-			var userId = User.Identity.GetUserId();
+			var userId = User.Identity.IsAuthenticated ? User.Identity.GetUserId() : null;
 			var gig = _context.Gigs
 							  .Include(g => g.Genre)
-							  .Include(g => g.Artist)
+							  .Include(g => g.Artist.Followers)
+							  .Include(g => g.Attendances)
 							  .Single(g => g.Id == id);
 			return View("Details", new GigDetailsViewModel(gig, userId));
 		}

@@ -1,8 +1,8 @@
-using System.Linq;
-using System.Web.Http;
 using GigHub.Dto;
 using GigHub.Models;
 using Microsoft.AspNet.Identity;
+using System.Linq;
+using System.Web.Http;
 
 namespace GigHub.Controllers.Api
 {
@@ -17,6 +17,7 @@ namespace GigHub.Controllers.Api
 		}
 
 		[HttpPost]
+		//on runtime dto is null if $.ajax() is used maybe I'm using it wrong way
 		public IHttpActionResult Attend (AttendanceDto dto)
 		{
 			var userId = User.Identity.GetUserId();

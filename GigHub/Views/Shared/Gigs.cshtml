@@ -60,10 +60,8 @@
         $(document).ready(function() {
             $(".js-toogle-attendance").click(function(e) {
                     var button = $(e.target);
-                    $.ajax({
-                        url: "/api/attendances/" + "GigId=" + button.attr("data-gig-id"),
-                        method: "POST"
-                })
+                    console.info(button.attr("data-gig-id"));
+                    $.post("/api/attendances/", { GigId: button.attr("data-gig-id") })
                 .done(function() {
                     button.removeClass("btn-default").addClass("btn-info").text("Going");
                 })
@@ -73,7 +71,8 @@
             });
             $(".js-toogle-following").click(function(event) {
                 var link = $(event.target);
-                $.post("/api/followings/", { followeeId: link.attr("data-user-id") })
+                console.info(link.attr("data-user-id"));
+                $.post("/api/following/", { FolloweeId: link.attr("data-user-id") })
                 .done(function() {
                     link.text("Following");
                 })
