@@ -5,6 +5,7 @@ namespace GigHub.ViewModels
 {
 	public class GigDetailsViewModel
 	{
+		public string ArtistId { get; }
 		public string ArtistName { get; }
 		public bool IsAuthorized { get; }
 		public bool IsFollowing { get; }
@@ -15,6 +16,7 @@ namespace GigHub.ViewModels
 
 		public GigDetailsViewModel (Gig gig, string userId)
 		{
+			ArtistId = gig.ArtistId;
 			ArtistName = gig.Artist.Name;
 			IsAuthorized = userId != null;
 			IsFollowing = IsAuthorized && gig.Artist.Followees.Any(f => f.FollowerId == userId);
