@@ -35,7 +35,7 @@
 
                 @if (Model.ShowActions)
                 {
-                    <button class="btn btn-link btn-sm pull-right js-toogle-following follow"
+                    <button class="btn btn-link btn-sm pull-right js-toggle-following follow"
                             data-user-id="@gig.ArtistId">
                         Follow
                     </button>
@@ -44,19 +44,12 @@
             <span class="genre">@gig.Genre.Name</span>
             @if (Model.ShowActions && !gig.IsCanceled)
             {
-                if (Model.Attendances.Contains(gig.Id))
-                {
-                    <button class="btn btn-info btn-sm pull-right">
-                        Going
-                    </button>
-                }
-                else
-                {
                     <button data-gig-id="@gig.Id"
-                            class="btn btn-default btn-sm pull-right js-toogle-attendance">
+                            class="btn 
+                            @(Model.Attendances.Contains(gig.Id) ? "btn-info" : "btn-default")
+                             btn-sm pull-right js-toggle-attendance">
                         Going ?
                     </button>
-                }
             }
         </div>
     </li>
@@ -67,18 +60,32 @@
 {
     <script>
         $(document).ready(function() {
-            $(".js-toogle-attendance").click(function(e) {
-                    var button = $(e.target);
-                    console.info(button.attr("data-gig-id"));
+            $(".js-toggle-attendance").click(function(e) {
+                var button = $(e.target);
+                console.info(button.attr("data-gig-id"));
+                if (button.hasClass("btn-default")) {
                     $.post("/api/attendances/", { GigId: button.attr("data-gig-id") })
-                .done(function() {
-                    button.removeClass("btn-default").addClass("btn-info").text("Going");
-                })
-                .fail(function() {
-                    alert("Something failed!");
-                });
+                        .done(function() {
+                            button.removeClass("btn-default").addClass("btn-info").text("Going");
+                        })
+                        .fail(function() {
+                            alert("Something failed!");
+                        });
+                } else if (button.hasClass("btn-info")){
+                    $.ajax({
+                            url: "/api/attendances/" + button.attr("data-gig-id"),
+                            method: "DELETE"
+                        })
+                        .done(function() {
+                            button.removeClass("btn-info").addClass("btn-default").text("Going ?");
+                        })
+                        .fail(function() {
+                            alert("Something failed!");
+                        });
+                }
+
             });
-            $(".js-toogle-following").click(function(event) {
+            $(".js-toggle-following").click(function(event) {
                 var link = $(event.target);
                 console.info(link.attr("data-user-id"));
                 $.post("/api/following/", { FolloweeId: link.attr("data-user-id") })

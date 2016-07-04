@@ -106,11 +106,17 @@ namespace GigHub.Controllers
 			var userId = User.Identity.GetUserId();
 			var gigs = _context.Attendances.Where(a => a.AttendeeId == userId).Select(a => a.Gig)
 											.Include(g => g.Artist).Include(g => g.Genre).ToList();
+
+			var attendances = _context.Attendances
+									  .Where(a => a.AttendeeId == userId && a.Gig.DateTime > DateTime.Now)
+									  .ToLookup(a => a.GigId);
+
 			var gigsViewModel = new GigsViewModel
 			{
 				UpcomingGigs = gigs,
 				ShowActions = true,
-				Heading = "Gigs I'm Attending"
+				Heading = "Gigs I'm Attending",
+				Attendances = attendances
 			};
 			return View("Gigs", gigsViewModel);
 		}
