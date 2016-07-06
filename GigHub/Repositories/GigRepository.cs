@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GigHub.Repositories
 {
-	public class GigRepository
+	public class GigRepository : IGigRepository
 	{
 		private readonly ApplicationDbContext _context;
 
@@ -15,12 +15,12 @@ namespace GigHub.Repositories
 			_context = context;
 		}
 
-		public Gig GetGig(int gigId)
+		public Gig GetGig (int gigId)
 		{
 			return _context.Gigs.SingleOrDefault(g => g.Id == gigId);
 		}
 
-		public Gig GetGigWithAttendees(int gigId)
+		public Gig GetGigWithAttendees (int gigId)
 		{
 			return _context.Gigs
 						.Include(g => g.Attendances.Select(a => a.Attendee))
@@ -36,7 +36,7 @@ namespace GigHub.Repositories
 						.SingleOrDefault(g => g.Id == gigId);
 		}
 
-		public IList<Gig> GetGigsUserAttending (string userId)
+		public IReadOnlyList<Gig> GetGigsUserAttending (string userId)
 		{
 			return _context.Attendances
 						.Where(a => a.AttendeeId == userId)
@@ -46,7 +46,7 @@ namespace GigHub.Repositories
 						.ToList();
 		}
 
-		public IList<Gig> GetUpcomingGigsByArtist(string userId)
+		public IReadOnlyList<Gig> GetUpcomingGigsByArtist (string userId)
 		{
 			return _context.Gigs
 						.Where(g => g.ArtistId == userId && g.DateTime > DateTime.Now && !g.IsCanceled)
@@ -54,7 +54,7 @@ namespace GigHub.Repositories
 						.ToList();
 		}
 
-		public void Add(Gig gig)
+		public void Add (Gig gig)
 		{
 			_context.Gigs.Add(gig);
 		}

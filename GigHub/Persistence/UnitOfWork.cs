@@ -3,16 +3,16 @@ using GigHub.Repositories;
 
 namespace GigHub.Persistence
 {
-	public class UnitOfWork
+	public class UnitOfWork : IUnitOfWork
 	{
 		private readonly ApplicationDbContext _context;
 
-		public GigRepository Gigs { get; }
-		public AttendanceRepository Attendances { get; }
-		public GenreRepository Genres { get; }
-		public FollowingRepository Followers { get; }
+		public IGigRepository Gigs { get; }
+		public IAttendanceRepository Attendances { get; }
+		public IGenreRepository Genres { get; }
+		public IFollowingRepository Followers { get; }
 
-		public UnitOfWork(ApplicationDbContext context)
+		public UnitOfWork (ApplicationDbContext context)
 		{
 			_context = context;
 			Gigs = new GigRepository(context);
@@ -21,7 +21,7 @@ namespace GigHub.Persistence
 			Followers = new FollowingRepository(context);
 		}
 
-		public void Complete()
+		public void Complete ()
 		{
 			_context.SaveChanges();
 		}
