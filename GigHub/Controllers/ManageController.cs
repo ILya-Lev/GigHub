@@ -1,4 +1,4 @@
-﻿using GigHub.Models;
+﻿using GigHub.Core.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -336,13 +336,7 @@ namespace GigHub.Controllers
 		// Used for XSRF protection when adding external logins
 		private const string XsrfKey = "XsrfId";
 
-		private IAuthenticationManager AuthenticationManager
-		{
-			get
-			{
-				return HttpContext.GetOwinContext().Authentication;
-			}
-		}
+		private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
 		private void AddErrors (IdentityResult result)
 		{
@@ -352,25 +346,9 @@ namespace GigHub.Controllers
 			}
 		}
 
-		private bool HasPassword ()
-		{
-			var user = UserManager.FindById(User.Identity.GetUserId());
-			if (user != null)
-			{
-				return user.PasswordHash != null;
-			}
-			return false;
-		}
+		private bool HasPassword () => UserManager.FindById(User.Identity.GetUserId())?.PasswordHash != null;
 
-		private bool HasPhoneNumber ()
-		{
-			var user = UserManager.FindById(User.Identity.GetUserId());
-			if (user != null)
-			{
-				return user.PhoneNumber != null;
-			}
-			return false;
-		}
+		private bool HasPhoneNumber () => UserManager.FindById(User.Identity.GetUserId())?.PhoneNumber != null;
 
 		public enum ManageMessageId
 		{
