@@ -1,4 +1,5 @@
 ﻿using GigHub.Core.Models;
+using GigHub.Persistence.EntityConfigurations;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 
@@ -24,38 +25,14 @@ namespace GigHub.Persistence
 
 		protected override void OnModelCreating (DbModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<Gig>()
-				.Property(g => g.ArtistId)
-				.IsRequired();
+			modelBuilder.Configurations.Add(new GigConfiguration());
+			modelBuilder.Configurations.Add(new ApplicationUserConfiguration());
+			modelBuilder.Configurations.Add(new UserNotificationConfiguration());
+			modelBuilder.Configurations.Add(new AttendanceConfiguration());
 
-			modelBuilder.Entity<Gig>()
-				.Property(g => g.Venue)
-				.IsRequired()
-				.HasMaxLength(255);
-
-			modelBuilder.Entity<Gig>()
-				.Property(g => g.GenreId)
-				.IsRequired();
-
-			modelBuilder.Entity<Attendance>()
-				.HasRequired(a => a.Gig)
-				.WithMany(g => g.Attendances)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<ApplicationUser>()
-				.HasMany(u => u.Followers)
-				.WithRequired(u => u.Followee)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<ApplicationUser>()
-				.HasMany(u => u.Followees)
-				.WithRequired(u => u.Follower)
-				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<UserNotification>()
-				.HasRequired(un => un.User)
-				.WithMany(u => u.UserNotifications)
-				.WillCascadeOnDelete(false);
+			modelBuilder.Entity<Following>().HasKey(f => new { f.FollowerId, f.FolloweeId });
+			modelBuilder.Entity<Genre>().Property(g => g.Name).IsRequired().HasMaxLength(255);
+			modelBuilder.Entity<Notification>().Property(n => n.GigId).IsRequired();
 
 			base.OnModelCreating(modelBuilder);
 		}

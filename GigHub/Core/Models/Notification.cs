@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace GigHub.Core.Models
 {
@@ -15,14 +14,15 @@ namespace GigHub.Core.Models
 
 		public string OriginalVenue { get; private set; }
 
-		[Required]
 		public Gig Gig { get; private set; }
 
-		protected Notification()
+		public int GigId { get; private set; }
+
+		protected Notification ()
 		{
 		}
 
-		private Notification(Gig gig, NotificationType type)
+		private Notification (Gig gig, NotificationType type)
 		{
 			if (gig == null) throw new ArgumentNullException(nameof(gig));
 
@@ -31,12 +31,12 @@ namespace GigHub.Core.Models
 			DateTime = DateTime.Now;
 		}
 
-		public static Notification CreateNewNotification(Gig gig)
+		public static Notification CreateNewNotification (Gig gig)
 		{
 			return new Notification(gig, NotificationType.GigCreated);
 		}
 
-		public static Notification CreateUpdateNotification(Gig gig)
+		public static Notification CreateUpdateNotification (Gig gig)
 		{
 			var notification = new Notification(gig, NotificationType.GigUpdated)
 			{

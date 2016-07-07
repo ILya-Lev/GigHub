@@ -291,7 +291,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Persistence\EntityConfigurations\ApplicationUserConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\AttendanceConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\GigConfiguration.cs" />
+    <Compile Include="Persistence\EntityConfigurations\UserNotificationConfiguration.cs" />
     <Compile Include="Persistence\Migrations\201606112130551_InitialModel.cs" />
     <Compile Include="Persistence\Migrations\201606112130551_InitialModel.Designer.cs">
       <DependentUpon>201606112130551_InitialModel.cs</DependentUpon>
@@ -343,6 +346,10 @@
     <Compile Include="Persistence\Migrations\201606231041114_UserNotificationClassesAdded.cs" />
     <Compile Include="Persistence\Migrations\201606231041114_UserNotificationClassesAdded.Designer.cs">
       <DependentUpon>201606231041114_UserNotificationClassesAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\Migrations\201607072117400_FluentApiUsage.cs" />
+    <Compile Include="Persistence\Migrations\201607072117400_FluentApiUsage.Designer.cs">
+      <DependentUpon>201607072117400_FluentApiUsage.cs</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Migrations\Configuration.cs" />
     <Compile Include="Persistence\ApplicationDbContext.cs" />
@@ -488,6 +495,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Persistence\Migrations\201606231041114_UserNotificationClassesAdded.resx">
       <DependentUpon>201606231041114_UserNotificationClassesAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Persistence\Migrations\201607072117400_FluentApiUsage.resx">
+      <DependentUpon>201607072117400_FluentApiUsage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
