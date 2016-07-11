@@ -15,7 +15,7 @@ namespace GigHub.Core.Models
 		// it's navigation prop after we've added an ArtistId prop
 		public ApplicationUser Artist { get; set; }
 
-		public string ArtistId { get; private set; }
+		public string ArtistId { get; set; }
 
 		public DateTime DateTime { get; private set; }
 
@@ -27,7 +27,7 @@ namespace GigHub.Core.Models
 
 		public ICollection<Attendance> Attendances { get; } = new Collection<Attendance>();
 
-		protected Gig ()
+		public Gig ()
 		{
 		}
 
