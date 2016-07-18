@@ -39,6 +39,7 @@
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <Reference Include="FluentAssertions, Version=4.11.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentAssertions.4.11.0\lib\net45\FluentAssertions.dll</HintPath>
       <Private>True</Private>
@@ -86,7 +87,8 @@
     <Compile Include="Controllers\Api\AttendanceControllerTests.cs" />
     <Compile Include="Controllers\Api\GigsControllerTests.cs" />
     <Compile Include="Extensions\ApiControllerExtensions.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="Extensions\MockDbSetExtensions.cs" />
+    <Compile Include="Persistence\Resporitories\GigRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

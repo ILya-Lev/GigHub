@@ -17,7 +17,7 @@ namespace GigHub.Core.Models
 
 		public string ArtistId { get; set; }
 
-		public DateTime DateTime { get; private set; }
+		public DateTime DateTime { get; set; }
 
 		public string Venue { get; private set; }
 

@@ -5,7 +5,7 @@ using System.Data.Entity;
 
 namespace GigHub.Persistence
 {
-	public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+	public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
 	{
 		//to notify EF about new custom model class - Gig;
 		//it also contains references to class Genre - so EF will handle it automatically
