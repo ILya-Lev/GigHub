@@ -1,9 +1,8 @@
-﻿using GigHub.Persistence;
-using Microsoft.AspNet.Identity;
-using System.Web.Mvc;
-using GigHub.Core;
+﻿using GigHub.Core;
 using GigHub.Core.Models;
 using GigHub.Core.ViewModels;
+using Microsoft.AspNet.Identity;
+using System.Web.Mvc;
 
 namespace GigHub.Controllers
 {
@@ -90,7 +89,7 @@ namespace GigHub.Controllers
 		}
 
 		[Authorize]
-		public ActionResult Mine ()
+		public ViewResult Mine ()
 		{
 			var gigs = _unitOfWork.Gigs.GetUpcomingGigsByArtist(User.Identity.GetUserId());
 

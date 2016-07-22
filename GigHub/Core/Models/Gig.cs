@@ -19,9 +19,9 @@ namespace GigHub.Core.Models
 
 		public DateTime DateTime { get; set; }
 
-		public string Venue { get; private set; }
+		public string Venue { get; set; }
 
-		public Genre Genre { get; private set; }
+		public Genre Genre { get; set; }
 
 		public byte GenreId { get; private set; }
 

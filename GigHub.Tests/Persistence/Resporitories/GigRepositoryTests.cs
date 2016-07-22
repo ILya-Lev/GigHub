@@ -15,14 +15,17 @@ namespace GigHub.Tests.Persistence.Resporitories
 	{
 		private GigRepository _repository;
 		private Mock<DbSet<Gig>> _mockGigs;
+		private Mock<DbSet<Attendance>> _mockAttendance;
 
 		[TestInitialize]
 		public void TestInitialize ()
 		{
 			_mockGigs = new Mock<DbSet<Gig>>();
+			_mockAttendance = new Mock<DbSet<Attendance>>();
 
 			var mockContext = new Mock<IApplicationDbContext>();
 			mockContext.SetupGet(c => c.Gigs).Returns(_mockGigs.Object);
+			mockContext.SetupGet(c => c.Attendances).Returns(_mockAttendance.Object);
 			
 			_repository = new GigRepository(mockContext.Object);
 		}
@@ -75,6 +78,21 @@ namespace GigHub.Tests.Persistence.Resporitories
 			//assert
 			gigs.Should().HaveCount(1);
 			gigs.Should().HaveElementAt(0, gig);
+		}
+
+		[TestMethod]
+		public void GetGigsUserAttending_NoGigsForTheUser_ShouldNotReturn()
+		{
+			//arrange
+			var gig = new Gig{DateTime = DateTime.Today.AddDays(1), ArtistId = "1"};
+			_mockGigs.SetSource(new [] {gig});
+
+			var attendance = new Attendance {Gig = gig, AttendeeId = "2"};
+			_mockAttendance.SetSource(new []{attendance});
+			//act
+			var gigs = _repository.GetGigsUserAttending(gig.ArtistId);
+			//assert
+			gigs.Should().BeEmpty();//why _repo.Attendances is empty ? - wrong mocking
 		}
 	}
 }
